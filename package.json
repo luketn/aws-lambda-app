@@ -7,6 +7,7 @@
     "test": "jest",
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit",
     "compile-deploy": "tsc && sls deploy",
+
     "serverless-local": "tsc && sls invoke local -f http --data '{\"path\":\"/\"}'",
     "typescript-compile": "tsc",
     "typescript-initialize": "tsc --init",

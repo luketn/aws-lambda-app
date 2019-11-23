@@ -36,3 +36,8 @@ jobs:
       - store_artifacts:
           path: coverage/lcov-report
           destination: coverage
+
+
+      - run:
+          name: Deploy to AWS
+          command: npm run compile-deploy
