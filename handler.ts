@@ -2,7 +2,7 @@
 
 import {APIGatewayProxyHandler} from "aws-lambda";
 
-export const hello: APIGatewayProxyHandler = async event => {
+export const http: APIGatewayProxyHandler = async event => {
   return {
     statusCode: 200,
     body: JSON.stringify(

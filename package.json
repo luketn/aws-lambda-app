@@ -6,7 +6,8 @@
   "scripts": {
     "typescript-compile": "tsc",
     "typescript-initialize": "tsc --init",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile-deploy": "tsc && sls deploy"
   },
   "repository": {
     "type": "git",
