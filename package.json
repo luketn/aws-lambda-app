@@ -4,10 +4,13 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
+    "test": "jest",
+    "compile-deploy": "tsc && sls deploy",
+
+
     "typescript-compile": "tsc",
     "typescript-initialize": "tsc --init",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile-deploy": "tsc && sls deploy"
+    "jest-initialize": "jest --init"
   },
   "repository": {
     "type": "git",
@@ -21,8 +24,11 @@
   "homepage": "https://github.com/luketn/aws-lambda-app#readme",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.36",
+    "@types/jest": "^24.0.23",
     "@types/node": "^12.12.12",
+    "jest": "^24.9.0",
     "serverless-domain-manager": "^3.3.0",
+    "ts-jest": "^24.2.0",
     "typescript": "^3.7.2"
   }
 }
