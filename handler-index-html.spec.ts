@@ -1,8 +1,8 @@
-import {StaticContentHandler} from "./handler-static-content";
+import {IndexHtmlHandler} from "./handler-index-html";
 import {APIGatewayProxyEvent} from "aws-lambda";
 
-describe("Static Content Handler canHandleThis", () => {
-    const staticContentHandler = new StaticContentHandler();
+describe("Index HTML Handler canHandleThis", () => {
+    const staticContentHandler = new IndexHtmlHandler();
 
     it("should return true for '/' or '/index.html' paths", () => {
         expect(staticContentHandler.canHandleThis(<APIGatewayProxyEvent>{path: "/"})).toEqual(true);
@@ -14,8 +14,8 @@ describe("Static Content Handler canHandleThis", () => {
     });
 });
 
-describe("Static Content Handler handle", () => {
-    const staticContentHandler = new StaticContentHandler();
+describe("Index HTML Handler handle", () => {
+    const staticContentHandler = new IndexHtmlHandler();
 
     it("should return 200 response with index.html base64 data", async () => {
         let response = await staticContentHandler.handle(<APIGatewayProxyEvent>{path: "/"});

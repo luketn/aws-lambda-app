@@ -8,6 +8,7 @@
     "compile-deploy": "tsc && sls deploy",
 
 
+    "serverless-local": "tsc && sls invoke local -f http --data '{\"path\":\"/\"}'",
     "typescript-compile": "tsc",
     "typescript-initialize": "tsc --init",
     "jest-initialize": "jest --init"

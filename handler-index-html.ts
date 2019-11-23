@@ -2,7 +2,7 @@ import {HttpEventHandler} from "./interfaces";
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import * as fs from "fs";
 
-export class StaticContentHandler implements HttpEventHandler {
+export class IndexHtmlHandler implements HttpEventHandler {
     canHandleThis(event: APIGatewayProxyEvent) {
         return event.path === "/" || event.path === "/index.html";
     }
