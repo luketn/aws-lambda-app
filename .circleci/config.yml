@@ -24,4 +24,15 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm test
+      - run:
+          name: Run Tests
+          command: npm test-ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
+
+      - store_test_results:
+          path: reports
+
+      - store_artifacts:
+          path: coverage/lcov-report
+          destination: coverage

@@ -1,7 +1,9 @@
 /.idea/
 /.serverless/
 /node_modules/
+/coverage/
 
 *.js
 
 !/jest.config.js
+/junit.xml
