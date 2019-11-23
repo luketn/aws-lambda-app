@@ -3,7 +3,9 @@
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {HttpEventHandler} from "./interfaces";
 import {StaticContentHandler} from "./handler-static-content";
+import {FallbackHandler} from "./handler-fallback";
 
+const fallbackHandler = new FallbackHandler();
 const handlers: HttpEventHandler[] = [
     new StaticContentHandler()
 ];
@@ -20,11 +22,5 @@ export const http: APIGatewayProxyHandler = async event => {
         }
     }
 
-    return {
-        statusCode: 404,
-        headers: {
-            "Content-Type": "text/plain"
-        },
-        body: `No handler found for event on path ${event.path}!`
-    };
+    return fallbackHandler.handle(event);
 };
