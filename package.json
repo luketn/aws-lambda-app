@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.36",
     "@types/node": "^12.12.12",
+    "serverless-domain-manager": "^3.3.0",
     "typescript": "^3.7.2"
   }
 }

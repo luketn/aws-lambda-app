@@ -34,3 +34,13 @@ package:
     - 'test-report.html'
     - 'coverage/**'
     - '.idea/**'
+
+plugins:
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: api.mycodefu.com
+    basePath: 'aws-lambda-app'
+    stage: ${self:provider.stage}
+    createRoute53Record: false
