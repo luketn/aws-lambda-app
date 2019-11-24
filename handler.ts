@@ -1,6 +1,6 @@
 'use strict';
 
-import {APIGatewayProxyHandler} from "aws-lambda";
+import {APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult} from "aws-lambda";
 import {HttpEventHandler} from "./interfaces";
 import {IndexHtmlHandler} from "./handler-index-html";
 import {FallbackHandler} from "./handler-fallback";
@@ -18,11 +18,30 @@ export const http: APIGatewayProxyHandler = async event => {
         event.path = event.path.substr("/aws-lambda-app".length);
     }
 
+    let result: APIGatewayProxyResult | undefined;
     for (const handler of handlers) {
         if (handler.canHandleThis(event)) {
-            return await handler.handle(event);
+            result = await handler.handle(event);
+            break;
         }
     }
 
-    return fallbackHandler.handle(event);
+    if (!result) {
+        result = await fallbackHandler.handle(event);
+    }
+
+    addOriginResponseHeader(event, result);
+
+    return result;
+};
+
+export const addOriginResponseHeader = (event: APIGatewayProxyEvent, result: APIGatewayProxyResult) => {
+    try {
+        if (event.headers && result.headers) {
+            let origin = event.headers.origin;
+            if (origin && result.headers) {
+                result.headers['Access-Control-Allow-Origin'] = origin;
+            }
+        }
+    } catch {/*ignore*/}
 };
