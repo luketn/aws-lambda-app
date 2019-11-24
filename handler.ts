@@ -4,10 +4,12 @@ import {APIGatewayProxyHandler} from "aws-lambda";
 import {HttpEventHandler} from "./interfaces";
 import {IndexHtmlHandler} from "./handler-index-html";
 import {FallbackHandler} from "./handler-fallback";
+import {HelloApiHandler} from "./handler-hello-api";
 
 const fallbackHandler = new FallbackHandler();
 const handlers: HttpEventHandler[] = [
-    new IndexHtmlHandler()
+    new IndexHtmlHandler(),
+    new HelloApiHandler()
 ];
 
 export const http: APIGatewayProxyHandler = async event => {
