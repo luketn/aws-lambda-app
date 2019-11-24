@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit",
+    "coverage-badge": "lcov-badge-generator -o ./coverage.svg ./coverage/lcov.info",
     "compile-deploy": "tsc && sls deploy",
     "serverless-local": "tsc && sls invoke local -f http --data '{\"path\":\"/\"}'",
     "typescript-compile": "tsc",
@@ -28,6 +29,7 @@
     "@types/node": "^12.12.12",
     "jest": "^24.9.0",
     "jest-junit": "^9.0.0",
+    "lcov-badge-generator": "^1.0.5",
     "serverless": "^1.58.0",
     "serverless-domain-manager": "^3.3.0",
     "ts-jest": "^24.2.0",
