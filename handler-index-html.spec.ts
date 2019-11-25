@@ -1,16 +1,16 @@
-import {IndexHtmlHandler} from "./handler-index-html";
 import {APIGatewayProxyEvent} from "aws-lambda";
+import {IndexHtmlHandler} from "./handler-index-html";
 
 describe("Index HTML Handler canHandleThis", () => {
     const staticContentHandler = new IndexHtmlHandler();
 
     it("should return true for '/' or '/index.html' paths", () => {
-        expect(staticContentHandler.canHandleThis(<APIGatewayProxyEvent>{path: "/"})).toEqual(true);
-        expect(staticContentHandler.canHandleThis(<APIGatewayProxyEvent>{path: "/index.html"})).toEqual(true);
+        expect(staticContentHandler.canHandleThis({path: "/"} as APIGatewayProxyEvent)).toEqual(true);
+        expect(staticContentHandler.canHandleThis({path: "/index.html"} as APIGatewayProxyEvent)).toEqual(true);
     });
     it("should return false for other paths", () => {
-        expect(staticContentHandler.canHandleThis(<APIGatewayProxyEvent>{path: "/other"})).toEqual(false);
-        expect(staticContentHandler.canHandleThis(<APIGatewayProxyEvent>{path: "/services/test.json"})).toEqual(false);
+        expect(staticContentHandler.canHandleThis({path: "/other"} as APIGatewayProxyEvent)).toEqual(false);
+        expect(staticContentHandler.canHandleThis({path: "/services/test.json"} as APIGatewayProxyEvent)).toEqual(false);
     });
 });
 
@@ -18,13 +18,13 @@ describe("Index HTML Handler handle", () => {
     const staticContentHandler = new IndexHtmlHandler();
 
     it("should return 200 response with index.html base64 data", async () => {
-        let response = await staticContentHandler.handle(<APIGatewayProxyEvent>{path: "/"});
+        const response = await staticContentHandler.handle({path: "/"} as APIGatewayProxyEvent);
         expect(response.statusCode).toEqual(200);
         expect(response.isBase64Encoded).toEqual(true);
         expect(response.headers).toEqual({"Content-Type": "text/html"});
 
-        let buffer = new Buffer(response.body, 'base64');
-        let text = buffer.toString('ascii');
+        const buffer = new Buffer(response.body, "base64");
+        const text = buffer.toString("ascii");
         expect(text).toContain("AWS Lambda App");
     });
 });

@@ -11,7 +11,10 @@
     "serverless-local": "tsc && sls invoke local -f http --data '{\"path\":\"/\"}'",
     "typescript-compile": "tsc",
     "typescript-initialize": "tsc --init",
-    "jest-initialize": "jest --init"
+    "jest-initialize": "jest --init",
+    "tslint-initialize": "tslint --init",
+    "tslint-fix": "tslint -c tslint.json *.ts --fix",
+    "tslint": "tslint -c tslint.json *.ts"
   },
   "repository": {
     "type": "git",
@@ -33,6 +36,7 @@
     "serverless": "^1.58.0",
     "serverless-domain-manager": "^3.3.0",
     "ts-jest": "^24.2.0",
+    "tslint": "^5.20.1",
     "typescript": "^3.7.2",
     "underscore.string": ">=3.3.5"
   }

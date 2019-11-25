@@ -26,6 +26,10 @@ jobs:
 
       - run:
           name: Run Tests
+          command: npm run tslint
+
+      - run:
+          name: Run Tests
           command: |
             npm run test-ci
             npm run coverage-badge
