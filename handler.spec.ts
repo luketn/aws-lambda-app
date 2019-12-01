@@ -3,82 +3,82 @@ import {addOriginResponseHeader, http} from "./handler";
 
 describe("Handler", () => {
     it("should return a positive response for index.html on root", async () => {
-        let response = await http(<APIGatewayProxyEvent>{path: '/index.html'});
+        const response = await http({path: "/index.html"} as APIGatewayProxyEvent);
         expect(response.statusCode).toBe(200);
     });
     it("should return a positive response for index.html on subpath", async () => {
-        let response = await http(<APIGatewayProxyEvent>{path: '/aws-lambda-app/index.html'});
+        const response = await http({path: "/aws-lambda-app/index.html"} as APIGatewayProxyEvent);
         expect(response.statusCode).toBe(200);
     });
     it("should return a 404 for an unknown path", async () => {
-        let response = await http(<APIGatewayProxyEvent>{path: '/unknown-path'});
+        const response = await http({path: "/unknown-path"} as APIGatewayProxyEvent);
         expect(response.statusCode).toBe(404);
     });
     it("should add CORS response", async () => {
-        let response = await http(<APIGatewayProxyEvent>{
-            path: '/index.html',
-            headers: {origin: 'xyz'},
+        const response = await http({
+            path: "/index.html",
+            headers: {origin: "xyz"},
             body: null,
-            httpMethod: 'GET',
-            isBase64Encoded:false,
+            httpMethod: "GET",
+            isBase64Encoded: false,
             multiValueHeaders: {},
             multiValueQueryStringParameters: {},
             pathParameters: {},
             queryStringParameters: {},
-            requestContext: <APIGatewayEventRequestContext>{},
-            resource: '',
-            stageVariables: {}
-        });
+            requestContext: {} as APIGatewayEventRequestContext,
+            resource: "",
+            stageVariables: {},
+        } as APIGatewayProxyEvent);
         expect(response.statusCode).toBe(200);
         expect(response.headers).toEqual({
             "Content-Type": "text/html",
-            "Access-Control-Allow-Origin": "xyz"
+            "Access-Control-Allow-Origin": "xyz",
         });
     });
     it("should not add CORS response when there are no headers in event", async () => {
-        let response = <APIGatewayProxyResult>{};
-        await addOriginResponseHeader(<APIGatewayProxyEvent>{}, response);
+        const response = {} as APIGatewayProxyResult;
+        await addOriginResponseHeader({} as APIGatewayProxyEvent, response);
         expect(response.headers).not.toEqual({
             "Content-Type": "text/html",
-            "Access-Control-Allow-Origin": "xyz"
+            "Access-Control-Allow-Origin": "xyz",
         });
     });
     it("should add CORS response when there is an origin header in event but not in response", async () => {
-        let response = <APIGatewayProxyResult>{};
-        await addOriginResponseHeader(<APIGatewayProxyEvent>{
-            path: '/index.html',
-            headers: {origin: 'xyz'},
+        const response = {} as APIGatewayProxyResult;
+        await addOriginResponseHeader({
+            path: "/index.html",
+            headers: {origin: "xyz"},
             body: null,
-            httpMethod: 'GET',
-            isBase64Encoded:false,
+            httpMethod: "GET",
+            isBase64Encoded: false,
             multiValueHeaders: {},
             multiValueQueryStringParameters: {},
             pathParameters: {},
             queryStringParameters: {},
-            requestContext: <APIGatewayEventRequestContext>{},
-            resource: '',
-            stageVariables: {}
-        }, response);
+            requestContext: {} as APIGatewayEventRequestContext,
+            resource: "",
+            stageVariables: {},
+        } as APIGatewayProxyEvent, response);
         expect(response.headers).toEqual({
-            "Access-Control-Allow-Origin": "xyz"
+            "Access-Control-Allow-Origin": "xyz",
         });
     });
     it("should not add CORS response when there is no origin header in event but not in response", async () => {
-        let response = <APIGatewayProxyResult>{};
-        await addOriginResponseHeader(<APIGatewayProxyEvent>{
-            path: '/index.html',
+        const response = {} as APIGatewayProxyResult;
+        await addOriginResponseHeader({
+            path: "/index.html",
             headers: {},
             body: null,
-            httpMethod: 'GET',
-            isBase64Encoded:false,
+            httpMethod: "GET",
+            isBase64Encoded: false,
             multiValueHeaders: {},
             multiValueQueryStringParameters: {},
             pathParameters: {},
             queryStringParameters: {},
-            requestContext: <APIGatewayEventRequestContext>{},
-            resource: '',
-            stageVariables: {}
-        }, response);
+            requestContext: {} as APIGatewayEventRequestContext,
+            resource: "",
+            stageVariables: {},
+        } as APIGatewayProxyEvent, response);
         expect(response.headers).toBeUndefined();
     });
 });
