@@ -30,9 +30,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: |
-            npm run test-ci
-            npm run coverage-badge
+          command: npm run test-ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
 
@@ -43,11 +41,14 @@ jobs:
           path: coverage/lcov-report
           destination: coverage
 
+      - run:
+          name: Create code coverage badge
+          command: npm run coverage-badge
+          halt_build_on_fail: false
+
       - store_artifacts:
           path: coverage.svg
           destination: coverage.svg
-
-
 
       - run:
           name: Deploy to AWS
