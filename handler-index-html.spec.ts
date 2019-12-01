@@ -20,11 +20,10 @@ describe("Index HTML Handler handle", () => {
     it("should return 200 response with index.html base64 data", async () => {
         const response = await staticContentHandler.handle({path: "/"} as APIGatewayProxyEvent);
         expect(response.statusCode).toEqual(200);
-        expect(response.isBase64Encoded).toEqual(true);
+        expect(response.isBase64Encoded).toEqual(false);
         expect(response.headers).toEqual({"Content-Type": "text/html"});
 
-        const buffer = new Buffer(response.body, "base64");
-        const text = buffer.toString("ascii");
+        const text = response.body;
         expect(text).toContain("AWS Lambda App");
     });
 });
