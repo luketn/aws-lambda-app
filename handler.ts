@@ -1,6 +1,6 @@
 "use strict";
 
-import {APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult} from "aws-lambda";
+import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {FallbackHandler} from "./handler-fallback";
 import {HelloApiHandler} from "./handler-hello-api";
 import {IndexHtmlHandler} from "./handler-index-html";
@@ -12,7 +12,7 @@ const handlers: HttpEventHandler[] = [
     new HelloApiHandler(),
 ];
 
-export const http: APIGatewayProxyHandler = async (event) => {
+export const http = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     // normalise the path no matter whether the request is on the API Gateway URL or the api.mycodefu.com/aws-lambda-app URL
     if (event.path.startsWith("/aws-lambda-app")) {
         event.path = event.path.substr("/aws-lambda-app".length);
@@ -36,12 +36,13 @@ export const http: APIGatewayProxyHandler = async (event) => {
 };
 
 export const addOriginResponseHeader = (event: APIGatewayProxyEvent, result: APIGatewayProxyResult) => {
-    try {
-        if (event.headers && result.headers) {
-            const origin = event.headers.origin;
-            if (origin && result.headers) {
-                result.headers["Access-Control-Allow-Origin"] = origin;
+    if (event.headers) {
+        const origin = event.headers.origin;
+        if (origin) {
+            if (!result.headers) {
+                result.headers = {};
             }
+            result.headers["Access-Control-Allow-Origin"] = origin;
         }
-    } catch {/*ignore*/}
+    }
 };
