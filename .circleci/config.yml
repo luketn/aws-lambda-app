@@ -25,7 +25,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run Tests
+          name: Lint
           command: npm run tslint
 
       - run:
@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Create code coverage badge
           command: npm run coverage-badge
-          halt_build_on_fail: false
+          when: always
 
       - store_artifacts:
           path: coverage.svg
