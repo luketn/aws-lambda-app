@@ -7,6 +7,12 @@ export interface HelloData {
 }
 
 export class HelloApiHandler implements HttpEventHandler {
+    helloData: HelloData[] = [
+        {id: 1, text: "Hi there!"},
+        {id: 2, text: "Well, hello!"},
+        {id: 3, text: "Bye I guess."}
+    ];
+    
     public canHandleThis(event: APIGatewayProxyEvent) {
         return event.path === "/hello-api";
     }
@@ -17,11 +23,7 @@ export class HelloApiHandler implements HttpEventHandler {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify([
-                {id: 1, text: "Hi there!"},
-                {id: 2, text: "Well, hello!"},
-                {id: 3, text: "Bye I guess."},
-            ] as HelloData[]),
+            body: JSON.stringify(data),
         };
     }
 }
