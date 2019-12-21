@@ -34,6 +34,8 @@ package:
     - 'test-report.html'
     - 'coverage/**'
     - '.idea/**'
+    - 'reports/**'
+    - 'coverage.svg'
 
 plugins:
   - serverless-domain-manager
