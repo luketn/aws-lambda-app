@@ -4,7 +4,6 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "jest",
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit",
     "coverage-badge": "lcov-badge-generator -o ./coverage.svg ./coverage/lcov.info",
     "compile-deploy": "tsc && sls deploy",
@@ -13,8 +12,11 @@
     "typescript-initialize": "tsc --init",
     "jest-initialize": "jest --init",
     "tslint-initialize": "tslint --init",
+    "tslint": "tslint -c tslint.json *.ts",
+
+
     "tslint-fix": "tslint -c tslint.json *.ts --fix",
-    "tslint": "tslint -c tslint.json *.ts"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

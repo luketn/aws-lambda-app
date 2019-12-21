@@ -75,10 +75,10 @@
         },
     }));
 
-    fetch('https://api.mycodefu.com/aws-lambda-app/hello-api').then(value => value.json().then((data) => {
+    fetch('https://api.mycodefu.com/aws-lambda-app/quote-api').then(value => value.json().then((data) => {
         console.log(data);
 
-        function HelloTable() {
+        function QuoteTable() {
             const classes = useStyles();
 
             return (
@@ -125,11 +125,11 @@
                     <AppBar position="static">
                         <Toolbar>
                             <Typography variant="h6" className={classes.title}>
-                                Hello Data!
+                                Favourite Quotes from Virginia Wolf
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    <HelloTable/>
+                    <QuoteTable/>
                     <Copyright/>
                 </Container>
             );
