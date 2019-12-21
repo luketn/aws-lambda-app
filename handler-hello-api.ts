@@ -1,5 +1,6 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
 import {HttpEventHandler} from "./interfaces";
+import {unsupportedMethodResponse} from "./apiStaticHelperMethods";
 
 export interface HelloData {
     id: number;
@@ -18,12 +19,20 @@ export class HelloApiHandler implements HttpEventHandler {
     }
 
     public async handle(event: APIGatewayProxyEvent) {
+        if (event.httpMethod === "GET") {
+            return this.handleGet(event);
+        } else {
+            return unsupportedMethodResponse(event.httpMethod);
+        }
+    }
+
+    private handleGet(event: APIGatewayProxyEvent) {
         return {
             statusCode: 200,
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.helloData),
         };
     }
 }

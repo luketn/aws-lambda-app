@@ -16,4 +16,11 @@ describe("Hello API", () => {
         expect(bodyData[0].text).toBe("Hi there!");
 
     });
+    it("should return a 405 response for an unexpected method on /hello-api", async () => {
+        const response = await helloApiHandler.handle({httpMethod: "DELETE", path: "/hello-api"} as APIGatewayProxyEvent);
+        expect(response.statusCode).toEqual(405);
+        const bodyData: string = response.body;
+        expect(bodyData).toBe("Unsupported method 'DELETE'.");
+
+    });
 });
